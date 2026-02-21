@@ -32,6 +32,7 @@ CREATE TABLE nine_inch_nails.Piste(
 	Nom nvarchar(50) NOT NULL,
 	TypePiste nvarchar(9) NOT NULL,
 	DureeSec smallint NOT NULL,
+    EstInstrumentale bit NOT NULL,
 	AGagneGrammy bit NOT NULL,
 	CONSTRAINT PK_Piste_PisteId PRIMARY KEY (PisteId),
 );
