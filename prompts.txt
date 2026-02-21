@@ -20,3 +20,24 @@ Claude Haiku 4.5:
 	6. **PisteTournee**: Tracks performed during each tour
 
 	You can execute this script directly against your database. The data is based on the official Nine Inch Nails discography with realistic sales figures and actual Grammy-winning tracks.
+
+Maya: 
+    Msg 547, Level 16, State 1, Server sql1, Line 3
+    The INSERT statement conflicted with the FOREIGN KEY constraint "FK_PisteTournee_PisteId". The conflict occurred in database "tp4d5", table "nine_inch_nails.Piste", column 'PisteId'.
+    The statement has been terminated.
+
+Claude Haiku 4.5:
+    The error occurs because I referenced `PisteId` values that don't exist in the `Piste` table. The issue is in the `PisteTournee` insertion - I'm trying to reference track IDs that weren't inserted yet or don't match.
+
+    Let me create a corrected script that properly inserts data with valid foreign key references:The issue is that the **PisteTournee** table is trying to reference **PisteId** values that don't match the ones actually inserted in the **Piste** table. Let me provide the corrected script:
+
+    (insert_nin_data_fixed.sql)
+
+    **Key fixes:**
+
+    1. **Removed tracks 51-63** that didn't exist in the Piste table
+    2. **All PisteId references in PisteTournee** now only use IDs from 1-50 (the actual inserted tracks)
+    3. **All TourneeId references** now use IDs from 1-10 (the actual inserted tours)
+    4. **Removed Videoclip reference** to track 48 (Starfuckers Inc.) which wasn't inserted
+
+    Run this corrected script and it should execute without foreign key conflicts!
