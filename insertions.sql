@@ -50,7 +50,7 @@ VALUES
 	('Every Day Is Exactly the Same', 'originale', 205, 0),
 	('Only', 'originale', 196, 0),
 	('Survivalism', 'originale', 213, 0),
-	('Me, I\'m Not', 'originale', 205, 0),
+	('Me, I''m Not', 'originale', 205, 0),
 	('Capital G', 'originale', 242, 0),
 	('The Good Soldier', 'originale', 227, 0),
 	('The Slip', 'originale', 225, 0),
@@ -60,7 +60,7 @@ VALUES
 	('All Time Low', 'originale', 229, 0),
 	('The Wailing Wall', 'remix', 296, 0),
 	('Reptile (Meat Beat Manifesto Mix)', 'remix', 368, 0),
-	('I Don\'t Want This', 'remix', 215, 0),
+	('I Don''t Want This', 'remix', 215, 0),
 	('Copy of a', 'remix', 278, 0),
 	('Beside You in Time', 'live', 385, 0),
 	('Discipline', 'originale', 242, 0),
@@ -68,43 +68,6 @@ VALUES
 	('Hurt', 'originale', 352, 1),
 	('In This Twilight', 'originale', 279, 0),
 	('Less Than', 'originale', 252, 0);
-GO
-
--- Insert PisteParution (Junction table between Tracks and Releases)
-INSERT INTO nine_inch_nails.PisteParution (PisteId, ParutionId)
-VALUES
-	-- Pretty Hate Machine
-	(1, 1), (2, 1), (3, 1), (24, 1), (25, 1), (26, 1), (27, 1), (28, 1), (29, 1), (30, 1), (31, 1), (32, 1),
-	-- Broken
-	(4, 2), (5, 2), (6, 2), (7, 2), (8, 2), (37, 2), (38, 2), (39, 2),
-	-- The Downward Spiral
-	(9, 3), (10, 3), (11, 3), (12, 3), (13, 3), (14, 3), (15, 3), (16, 3), (17, 3), (18, 3), (19, 3), (20, 3), (21, 3),
-	-- The Fragile
-	(22, 4), (23, 4), (33, 4), (34, 4), (35, 4), (36, 4), (40, 4), (41, 4), (42, 4), (43, 4), (44, 4), (45, 4),
-	-- With Teeth
-	(24, 5), (25, 5), (26, 5), (27, 5), (28, 5), (29, 5), (30, 5), (31, 5), (32, 5), (33, 5), (34, 5), (35, 5), (36, 5),
-	-- Year Zero
-	(46, 6), (47, 6), (48, 6), (49, 6), (50, 6);
-GO
-
--- Insert Videoclip (Music Videos)
-INSERT INTO nine_inch_nails.Videoclip (NomOfficiel, DateSortie, PisteId)
-VALUES
-	('Head Like a Hole', '1989-11-15', 1),
-	('Terrible Lie', '1990-06-15', 2),
-	('Down in It', '1994-03-01', 3),
-	('Broken', '1992-10-15', 4),
-	('Gave Up', '1992-11-15', 5),
-	('Wish', '1992-12-15', 7),
-	('Closer', '1994-06-15', 10),
-	('March of the Pigs', '1994-07-15', 9),
-	('Hurt', '1994-11-15', 44),
-	('Perfect Girl', '1995-01-15', 14),
-	('The Big Come Down', '1997-09-15', 21),
-	('Every Day Is Exactly the Same', '2005-06-15', 26),
-	('Only', '2005-08-15', 27),
-	('Survivalism', '2007-10-15', 28),
-	('Come Back Haunted', '2013-08-20', 42);
 GO
 
 -- Insert Tournee (Tours)
@@ -122,28 +85,168 @@ VALUES
 	('Bad Witch Tour', 2018, 2019);
 GO
 
--- Insert PisteTournee (Tracks performed on tours) - FIXED with valid PisteId references
-INSERT INTO nine_inch_nails.PisteTournee (PisteId, TourneeId)
-VALUES
-	-- Pretty Hate Machine Tour (TourneeId 1)
-	(1, 1), (2, 1), (3, 1),
-	-- Broken Tour (TourneeId 2)
-	(4, 2), (5, 2), (7, 2), (8, 2),
-	-- Self Destruct Tour (TourneeId 3)
-	(9, 3), (10, 3), (11, 3), (14, 3), (15, 3),
-	-- Against All Authority Tour (TourneeId 4)
-	(9, 4), (10, 4), (11, 4), (22, 4), (23, 4),
-	-- Fragility Tour (TourneeId 5)
-	(22, 5), (23, 5), (1, 5), (44, 5),
-	-- With Teeth Tour (TourneeId 6)
-	(24, 6), (25, 6), (26, 6), (27, 6), (44, 6),
-	-- Year Zero Tour (TourneeId 7)
-	(46, 7), (47, 7), (48, 7), (49, 7), (50, 7),
-	-- Lights in the Sky Tour (TourneeId 8)
-	(46, 8), (47, 8), (48, 8), (22, 8),
-	-- Hesitation Marks Tour (TourneeId 9)
-	(42, 9), (43, 9), (1, 9), (10, 9),
-	-- Bad Witch Tour (TourneeId 10)
-	(42, 10), (43, 10), (44, 10), (45, 10);
+-- Insert PisteParution using subqueries to lookup PisteId by Nom
+INSERT INTO nine_inch_nails.PisteParution (PisteId, ParutionId)
+SELECT p.PisteId, pa.ParutionId
+FROM (
+	VALUES
+		-- Pretty Hate Machine (ParutionId = 1)
+		('Head Like a Hole', 1),
+		('Terrible Lie', 1),
+		('Down in It', 1),
+		('With Teeth', 1),
+		('Love Is Not Enough', 1),
+		('Every Day Is Exactly the Same', 1),
+		('Only', 1),
+		('Survivalism', 1),
+		('Me, I''m Not', 1),
+		('Capital G', 1),
+		('The Good Soldier', 1),
+		('The Slip', 1),
+		-- Broken (ParutionId = 2)
+		('Broken', 2),
+		('Gave Up', 2),
+		('Pinion', 2),
+		('Wish', 2),
+		('Last', 2),
+		('The Wailing Wall', 2),
+		('Reptile (Meat Beat Manifesto Mix)', 2),
+		('I Don''t Want This', 2),
+		-- The Downward Spiral (ParutionId = 3)
+		('March of the Pigs', 3),
+		('Closer', 3),
+		('The Downward Spiral', 3),
+		('I Do Not Want This', 3),
+		('Big Come Down', 3),
+		('The Perfect Girl', 3),
+		('Heresy', 3),
+		('Reptile', 3),
+		('The Way Out Is Through', 3),
+		('Into the Void', 3),
+		('All That Could Have Been', 3),
+		('Somewhat Damaged', 3),
+		('The Big Come Down', 3),
+		-- The Fragile (ParutionId = 4)
+		('Try to Erase Me', 4),
+		('The Wretched', 4),
+		('Echoplex', 4),
+		('Yet Another Movie', 4),
+		('All Time Low', 4),
+		('Copy of a', 4),
+		('Beside You in Time', 4),
+		('Discipline', 4),
+		('Come Back Haunted', 4),
+		('Hurt', 4),
+		('In This Twilight', 4),
+		('Less Than', 4),
+		-- With Teeth (ParutionId = 5)
+		('With Teeth', 5),
+		('Love Is Not Enough', 5),
+		('Every Day Is Exactly the Same', 5),
+		('Only', 5),
+		('Survivalism', 5),
+		('Me, I''m Not', 5),
+		('Capital G', 5),
+		('The Good Soldier', 5),
+		('The Slip', 5),
+		('Letting Go', 5),
+		('Echoplex', 5),
+		('Yet Another Movie', 5),
+		('All Time Low', 5),
+		-- Year Zero (ParutionId = 6)
+		('Discipline', 6),
+		('Come Back Haunted', 6),
+		('Hurt', 6),
+		('In This Twilight', 6),
+		('Less Than', 6)
+) AS vt(PisteName, ParutionId)
+INNER JOIN nine_inch_nails.Piste p ON p.Nom = vt.PisteName
+INNER JOIN nine_inch_nails.Parution pa ON pa.ParutionId = vt.ParutionId;
 GO
 
+-- Insert Videoclip using subqueries to lookup PisteId by Nom
+INSERT INTO nine_inch_nails.Videoclip (NomOfficiel, DateSortie, PisteId)
+SELECT vc.VideoclipName, vc.DateSortie, p.PisteId
+FROM (
+	VALUES
+		('Head Like a Hole', '1989-11-15', 'Head Like a Hole'),
+		('Terrible Lie', '1990-06-15', 'Terrible Lie'),
+		('Down in It', '1994-03-01', 'Down in It'),
+		('Broken', '1992-10-15', 'Broken'),
+		('Gave Up', '1992-11-15', 'Gave Up'),
+		('Wish', '1992-12-15', 'Wish'),
+		('Closer', '1994-06-15', 'Closer'),
+		('March of the Pigs', '1994-07-15', 'March of the Pigs'),
+		('Hurt', '1994-11-15', 'Hurt'),
+		('Perfect Girl', '1995-01-15', 'The Perfect Girl'),
+		('The Big Come Down', '1997-09-15', 'The Big Come Down'),
+		('Every Day Is Exactly the Same', '2005-06-15', 'Every Day Is Exactly the Same'),
+		('Only', '2005-08-15', 'Only'),
+		('Survivalism', '2007-10-15', 'Survivalism'),
+		('Come Back Haunted', '2013-08-20', 'Come Back Haunted')
+) AS vc(VideoclipName, DateSortie, PisteName)
+INNER JOIN nine_inch_nails.Piste p ON p.Nom = vc.PisteName;
+GO
+
+-- Insert PisteTournee using subqueries to lookup IDs by names
+INSERT INTO nine_inch_nails.PisteTournee (PisteId, TourneeId)
+SELECT p.PisteId, t.TourneeId
+FROM (
+	VALUES
+		-- Pretty Hate Machine Tour
+		('Head Like a Hole', 'Pretty Hate Machine Tour'),
+		('Terrible Lie', 'Pretty Hate Machine Tour'),
+		('Down in It', 'Pretty Hate Machine Tour'),
+		-- Broken Tour
+		('Broken', 'Broken Tour'),
+		('Gave Up', 'Broken Tour'),
+		('Wish', 'Broken Tour'),
+		('Last', 'Broken Tour'),
+		-- Self Destruct Tour
+		('March of the Pigs', 'Self Destruct Tour'),
+		('Closer', 'Self Destruct Tour'),
+		('The Downward Spiral', 'Self Destruct Tour'),
+		('The Perfect Girl', 'Self Destruct Tour'),
+		('Heresy', 'Self Destruct Tour'),
+		-- Against All Authority Tour
+		('March of the Pigs', 'Against All Authority Tour'),
+		('Closer', 'Against All Authority Tour'),
+		('The Downward Spiral', 'Against All Authority Tour'),
+		('Try to Erase Me', 'Against All Authority Tour'),
+		('The Wretched', 'Against All Authority Tour'),
+		-- Fragility Tour
+		('Try to Erase Me', 'Fragility Tour'),
+		('The Wretched', 'Fragility Tour'),
+		('Head Like a Hole', 'Fragility Tour'),
+		('Hurt', 'Fragility Tour'),
+		-- With Teeth Tour
+		('With Teeth', 'With Teeth Tour'),
+		('Love Is Not Enough', 'With Teeth Tour'),
+		('Every Day Is Exactly the Same', 'With Teeth Tour'),
+		('Only', 'With Teeth Tour'),
+		('Hurt', 'With Teeth Tour'),
+		-- Year Zero Tour
+		('Discipline', 'Year Zero Tour'),
+		('Come Back Haunted', 'Year Zero Tour'),
+		('Hurt', 'Year Zero Tour'),
+		('In This Twilight', 'Year Zero Tour'),
+		('Less Than', 'Year Zero Tour'),
+		-- Lights in the Sky Tour
+		('Discipline', 'Lights in the Sky Tour'),
+		('Come Back Haunted', 'Lights in the Sky Tour'),
+		('Hurt', 'Lights in the Sky Tour'),
+		('Try to Erase Me', 'Lights in the Sky Tour'),
+		-- Hesitation Marks Tour
+		('Come Back Haunted', 'Hesitation Marks Tour'),
+		('Discipline', 'Hesitation Marks Tour'),
+		('Head Like a Hole', 'Hesitation Marks Tour'),
+		('Closer', 'Hesitation Marks Tour'),
+		-- Bad Witch Tour
+		('Come Back Haunted', 'Bad Witch Tour'),
+		('Discipline', 'Bad Witch Tour'),
+		('Hurt', 'Bad Witch Tour'),
+		('In This Twilight', 'Bad Witch Tour')
+) AS pt(PisteName, TourneeName)
+INNER JOIN nine_inch_nails.Piste p ON p.Nom = pt.PisteName
+INNER JOIN nine_inch_nails.Tournee t ON t.NomOfficiel = pt.TourneeName;
+GO
