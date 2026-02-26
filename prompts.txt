@@ -85,3 +85,23 @@ Claude Haiku 4.5:
         ✅ All other tracks marked as 0 (have vocals)
 
     The subquery approach remains the same - it will automatically find the correct PisteId values by track name!
+
+Maya:
+	Peux tu me remplir mes tables avec des insertions mssql (tsql) selon mon fichier sql de création, avec ce que tu peux trouver sur Nine Inch Nails sur le web (priorise Wikipedia)
+
+ChatGPT:
+	Voici un script d’insertions T-SQL compatible avec ton schéma.
+Il insère quelques albums, EP, singles, pistes, vidéoclips et tournées majeures de Nine Inch Nails (données générales connues, principalement issues de Wikipédia).
+
+(sql)
+
+Si tu veux, je peux :
+
+* 🔹 Ajouter beaucoup plus d’albums (Ghosts I–IV, Hesitation Marks, The Slip, etc.)
+* 🔹 Compléter toutes les pistes d’un album précis
+* 🔹 Ajouter d’autres Grammy gagnés
+* 🔹 Générer un dataset beaucoup plus volumineux pour tests avancés (jointures, statistiques, etc.)
+
+(reste: https://chatgpt.com/share/69a0bc90-6c58-800e-9a50-9f419d7bbd9f )
+
+	
