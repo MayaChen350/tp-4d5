@@ -46,10 +46,6 @@ BEGIN
     (PisteId, ParutionId)
     VALUES (@PisteId, @ParutionId);
 
-    UPDATE nine_inch_nails.Parution
-    SET NbPiste = NbPiste + 1
-    WHERE ParutionId = @ParutionId;
-    
     SELECT * FROM nine_inch_nails.Piste WHERE PisteId = @PisteId 
 END
 GO

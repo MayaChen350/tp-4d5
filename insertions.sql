@@ -8,6 +8,7 @@ GO
 
 INSERT INTO nine_inch_nails.Parution (Nom, TypeParution, DateSortie, NbVente, NbPiste)
 VALUES
+('Down in It', 'single', '1989-09-15', 100000, 1),
 ('Pretty Hate Machine', 'album', '1989-10-20', 3000000, 10),
 ('Broken', 'ep', '1992-09-22', 1000000, 8),
 ('The Downward Spiral', 'album', '1994-03-08', 4000000, 14),
@@ -122,6 +123,12 @@ VALUES
 ('In This Twilight','originale',321,0,0),
 ('Zero-Sum','originale',338,0,0);
 GO
+
+INSERT INTO nine_inch_nails.PisteParution (PisteId, ParutionId)
+SELECT p.PisteId, pa.ParutionId
+FROM nine_inch_nails.Piste p
+JOIN nine_inch_nails.Parution pa ON pa.Nom = 'Down in It'
+WHERE p.Nom = 'Down in It';
 
 INSERT INTO nine_inch_nails.PisteParution (PisteId, ParutionId)
 SELECT p.PisteId, pa.ParutionId
